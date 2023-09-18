@@ -1,0 +1,19 @@
+{
+  "name": "codesoft_ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KAYEMBAJONATHAN/codesoft_ecommerce.git"
+  },
+  "author": "joe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KAYEMBAJONATHAN/codesoft_ecommerce/issues"
+  },
+  "homepage": "https://github.com/KAYEMBAJONATHAN/codesoft_ecommerce#readme"
+}
