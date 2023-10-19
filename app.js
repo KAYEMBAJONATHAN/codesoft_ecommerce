@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const productRoutes = require('./Components/Routes/productRoutes');
+const userRoutes = require ('./Components/Routes/userRoutes');
+const authRoutes = require('./Components/Routes/auth');
+
 const connectDB = require('./Config/DB');
 
 const app = express();
@@ -18,9 +21,8 @@ app.use(cors());
 app.options('*', cors());
 
 app.use(`${api}/products`, productRoutes);
-
-// Remove this line, it's not needed
-// app.use(express.json);
+app.use(`${api}/users`, userRoutes);
+app.use(`${api}/auth`, authRoutes)
 
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
