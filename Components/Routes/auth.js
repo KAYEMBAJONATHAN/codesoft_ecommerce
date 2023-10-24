@@ -1,31 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const { User} = require('../Models/Users');
+const { User } = require('../Models/Users');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 
-router.post(`/`, async(req, res) => {
+router.post(`/`, async (req, res) => {
     try {
-         const {error} = validate(req.body);
-           if(error)
-             return res.status(400).send({message: error.details[0].message});
+        const { error } = validate(req.body);
+        if (error) {
+            return res.status(400).send({ message: error.details[0].message });
+        }
 
-         const user = await User.findOne({email: req.body.email});
-          if(!user)
-           return res.status(401).send({message: "Your Email or Password Invalide"}) 
-        
-         const validPassword = await bcrypt.compare(
-            req.body, user.password
-          );
-          if(!validPassword)
-            return res.status(401).send({message: "invalid Email or Password"});
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(401).send({ message: "Invalid Email or Password" });
+        }
 
-            const token = user.generateAuthToken();
-             res.status(200).send({data: token, message: "User Successfully Logged In"})
-        } catch (error) {
-            res.status(500).send({message: "Server Error"});
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!validPassword) {
+            return res.status(401).send({ message: "Invalid Email or Password" });
+        }
+
+        const token = user.generateAuthToken();
+        res.status(200).send({ data: token, message: "User Successfully Logged In" });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send({ message: "Server Error" });
     }
-})
+});
 
 const validate = (data) => {
     const schema = Joi.object({

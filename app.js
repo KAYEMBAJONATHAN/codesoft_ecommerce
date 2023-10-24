@@ -16,9 +16,9 @@ const api = process.env.API_URL;
 connectDB();
 require('dotenv').config();
 
-// Use the cors middleware before defining routes
 app.use(cors());
 app.options('*', cors());
+app.use(express.json());
 
 app.use(`${api}/products`, productRoutes);
 app.use(`${api}/users`, userRoutes);
